@@ -2,7 +2,7 @@
 
 > Philosophical stuff about this dotfiles structure, decisions, etc..
 
-## Why?
+## Why? - Carlos Becker
 
 I was a little tired of having long alias files and everything strewn about
 (which is extremely common on other dotfiles projects, too). That led to this
@@ -16,21 +16,16 @@ You can also [read my post on the subject](http://carlosbecker.com/posts/dotfile
 
 ### Do not install a lot of software
 
-At first, this repo contained the homebrew installation and other stuff like
-that. I realized it would be better to split that into another repo, so
-this one would contain only the configs, and the other handles only software
+This repo is meant to contain only configs, and another handles only software
 installation.
 
 If you want to see what I install on my mac, check
-[this repo](https://github.com/caarlos0/macos).
+[this repo](https://github.com/emroch/macos).
 
-### Default `EDITOR`, `VEDITOR` and `PROJECTS`
+### Default `EDITOR`, `VEDITOR`, etc.
 
-`VEDITOR` stands for "visual editor", and is set to `code` be default. `EDITOR`
+`VEDITOR` stands for "visual editor", and is set to `atom` by default. `EDITOR`
 is set to `vim`.
-
-`PROJECTS` is default to `~/Code`. The shortcut to that folder in the shell
-is `c`.
 
 You can change that by adding your custom overrides in `~/.localrc`.
 
@@ -64,16 +59,15 @@ and stuff like that.
 
 ### ZSH plugins
 
-This project uses the [pure][pure] prompt (which is awesome!) and some other
-[zsh plugins](/antibody/bundles.txt). All of them managed by [Antibody][antibody],
-a faster and simpler Antigen-like program written in Go.
+This project uses [Antibody][antibody] to manage plugins, similar to Oh-My-Zsh.
+Plugins to be loaded are defined in [this file](/antibody/bundles.txt) and
+are loaded automatically when `script/install` is run (also on `dot_update`).
 
-[pure]: https://github.com/sindresorhus/pure
 [antibody]: https://github.com/caarlos0/antibody
 
 ### Compatibility
 
-I try to keep it working in both Linux (no specific distro) and OS X,
-mostly because I use OS X at home and Linux at work.
+I try to keep it working in both Linux (no specific distro) and macOS,
+mostly because I use macOS at home and Linux at work.
 
-The CI also is also ran on Linux and OSX.
+The CI also is also run on Linux and macOS.

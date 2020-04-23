@@ -53,9 +53,10 @@ Plug 'dracula/vim', {'as': 'dracula'}
 call plug#end()
 
 set nocompatible              " be iMproved, required
+set modelines=0               " disable for security
 filetype off                  " required
 
-filetype plugin indent on    " required
+filetype plugin indent on     " required
 
 "
 " Settings
@@ -67,7 +68,7 @@ set showcmd                     " Show me what I'm typing
 set showmode                    " Show current mode.
 
 set noswapfile                  " Don't use swapfile
-set nobackup					          " Don't create annoying backup files
+set nobackup                    " Don't create annoying backup files
 set nowritebackup
 set splitright                  " Split vertical windows right to the current windows
 set splitbelow                  " Split horizontal windows below to the current windows
@@ -90,7 +91,7 @@ set ignorecase                  " Search case insensitive...
 set smartcase                   " ... but not when search pattern contains upper case characters
 set ttyfast
 " set ttyscroll=3               " noop on linux ?
-set lazyredraw          	      " Wait to redraw "
+set lazyredraw                    " Wait to redraw "
 
 " speed up syntax highlighting
 set nocursorcolumn
@@ -161,7 +162,7 @@ if !&sidescrolloff
 endif
 set display+=lastline
 
-" CTRL-U in insert mode deletes a lot.	Use CTRL-G u to first break undo,
+" CTRL-U in insert mode deletes a lot.    Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
@@ -180,8 +181,8 @@ endif
 " file it was loaded from, thus the changes you made.
 " Only define it when not defined already.
 "if !exists(":DiffOrig")
-""	command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-""				\ | wincmd p | diffthis
+""    command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+""                \ | wincmd p | diffthis
 "endif
 
 " Only do this part when compiled with support for autocommands.
@@ -207,7 +208,7 @@ if has("autocmd")
     " position when opening a file.
     autocmd BufReadPost *
           \ if line("'\"") > 1 && line("'\"") <= line("$") |
-          \	exe "normal! g`\"" |
+          \    exe "normal! g`\"" |
           \ endif
 
   augroup END
@@ -367,7 +368,7 @@ else
 endif
 
 " ----------------------------------------- "
-" File Type settings 			    		"
+" File Type settings                         "
 " ----------------------------------------- "
 
 au BufNewFile,BufRead *.vim setlocal noet ts=4 sw=4 sts=4
@@ -438,7 +439,7 @@ set wildignore+=*.orig                           " Merge resolution files
 
 
 " ----------------------------------------- "
-" Plugin configs 			    			"
+" Plugin configs                             "
 " ----------------------------------------- "
 
 
