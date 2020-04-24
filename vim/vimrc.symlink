@@ -1,18 +1,17 @@
 " load plugins
 call plug#begin('~/.vim/plugged')
-Plug 'scrooloose/nerdtree'
-Plug 'fatih/vim-go', {'tag': '*', 'do': ':GoInstallBinaries' }
-Plug 'nsf/gocode', {'rtp': 'vim'}
 
-" auto-complete for golang et al
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-Plug 'zchee/deoplete-go', { 'do': 'make'}
+Plug 'preservim/nerdtree'
+
+" " auto-complete for golang et al
+" if has('nvim')
+"   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" else
+"   Plug 'Shougo/deoplete.nvim'
+"   Plug 'roxma/nvim-yarp'
+"   Plug 'roxma/vim-hug-neovim-rpc'
+" endif
+" let g:deoplete#enable_at_startup = 1
 
 " provides insert mode auto-completion for quotes, parens, brackets, etc.
 Plug 'Raimondi/delimitMate'
@@ -21,34 +20,25 @@ Plug 'Raimondi/delimitMate'
 Plug '/usr/local/opt/fzf'
 
 " langs et al
-Plug 'cespare/vim-toml'
-Plug 'fatih/vim-nginx'
-Plug 'fatih/vim-hclfmt'
-Plug 'Yggdroot/indentLine'
-Plug 'godlygeek/tabular'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'tpope/vim-endwise'
-Plug 'elzr/vim-json'
-Plug 'junegunn/vim-easy-align'
+Plug 'Yggdroot/indentLine'              " show vertical lines at indent levels
+Plug 'terryma/vim-multiple-cursors'     " multiple cursor support
+Plug 'ntpeters/vim-better-whitespace'   " highlight trailing whitespace
+Plug 'tpope/vim-endwise'                " end language structures automatically
+Plug 'elzr/vim-json'                    " nice json highlighting
 Plug 'ekalinin/Dockerfile.vim'
-Plug 'puppetlabs/puppet-syntax-vim'
-Plug 'luochen1990/rainbow'
-Plug 'hashivim/vim-terraform'
 
 " git integration
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-
-" safe buffer deletion
-Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
-
-" Delete buffers and close files in Vim without closing your windows or
-" messing up your layout
-Plug 'moll/vim-bbye'
+if has('nvim') || has('patch-8.0.902')
+  Plug 'mhinz/vim-signify'
+else
+  Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
+endif
 
 " Colors
-Plug 'dracula/vim', {'as': 'dracula'}
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
@@ -79,7 +69,7 @@ set laststatus=2
 set hidden
 
 set ruler                       " Show the cursor position all the time
-au FocusLost * :wa              " Set vim to save the file on focus out.
+"au FocusLost * :wa              " Set vim to save the file on focus out.
 
 set fileformats=unix,dos,mac    " Prefer Unix over Windows over OS 9 formats
 
@@ -91,7 +81,7 @@ set ignorecase                  " Search case insensitive...
 set smartcase                   " ... but not when search pattern contains upper case characters
 set ttyfast
 " set ttyscroll=3               " noop on linux ?
-set lazyredraw                    " Wait to redraw "
+set lazyredraw                  " Wait to redraw
 
 " speed up syntax highlighting
 set nocursorcolumn
@@ -116,18 +106,16 @@ set formatoptions=qrn1
 "set relativenumber
 "set norelativenumber
 
-" mail line wrapping
-au BufRead /tmp/mutt-* set tw=72
-
 set autoindent
 set complete-=i
 set showmatch
 set smarttab
 
 set et
-set tabstop=4
+set tabstop=4         " number of visual spaces per TAB
+set softtabstop=4     " number of spaces in tab when editing
 set shiftwidth=4
-set expandtab
+set expandtab         " tabs are spaces
 
 set nrformats-=octal
 set shiftround
@@ -226,7 +214,7 @@ endif
 if exists('+termguicolors')
   set termguicolors
 endif
-:silent! colorscheme dracula
+:silent! colorscheme onehalfdark
 "set background=dark
 " let g:hybrid_use_Xresources = 1
 " let g:rehash256 = 1
@@ -256,8 +244,6 @@ autocmd FileType qf wincmd J
 ":clist   list all errors
 map <C-n> :cn<CR>
 map <C-m> :cp<CR>
-
-nnoremap <silent> <leader>q :Sayonara<CR>
 
 " Replace the current buffer with the given new file. That means a new file
 " will be open in a buffer while the old one will be deleted
@@ -371,35 +357,23 @@ endif
 " File Type settings                         "
 " ----------------------------------------- "
 
-au BufNewFile,BufRead *.vim setlocal noet ts=4 sw=4 sts=4
-au BufNewFile,BufRead *.txt setlocal noet ts=4 sw=4
-au BufNewFile,BufRead *.md setlocal spell noet ts=4 sw=4
+au BufNewFile,BufRead *.vim setlocal noet expandtab ts=4 sw=4 sts=4
+au BufNewFile,BufRead *.txt setlocal noet expandtab ts=4 sw=4
+au BufNewFile,BufRead *.md setlocal spell noet expandtab ts=4 sw=4
 au BufNewFile,BufRead *.yml,*.yaml setlocal expandtab ts=2 sw=2
-au BufNewFile,BufRead *.cpp setlocal expandtab ts=2 sw=2
-au BufNewFile,BufRead *.hpp setlocal expandtab ts=2 sw=2
-au BufNewFile,BufRead *.json setlocal expandtab ts=2 sw=2
-au BufNewFile,BufRead *.jade setlocal expandtab ts=2 sw=2
+au BufNewFile,BufRead *.cpp setlocal expandtab ts=4 sw=4
+au BufNewFile,BufRead *.hpp setlocal expandtab ts=4 sw=4
+au BufNewFile,BufRead *.json setlocal expandtab ts=4 sw=4
 
 augroup filetypedetect
   au BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
   au BufNewFile,BufRead .nginx.conf*,nginx.conf* setf nginx
-  au BufNewFile,BufRead *.jade setf pug
 augroup END
 
 au FileType nginx setlocal noet ts=4 sw=4 sts=4
 
-" Go settings
-au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
-" autocmd BufEnter *.go colorscheme nofrils-dark
-
-" scala settings
-autocmd BufNewFile,BufReadPost *.scala setl shiftwidth=2 expandtab
-
 " Markdown Settings
 autocmd BufNewFile,BufReadPost *.md setl ts=4 sw=4 sts=4 expandtab
-
-" lua settings
-autocmd BufNewFile,BufRead *.lua setlocal noet ts=4 sw=4 sts=4
 
 " Dockerfile settings
 autocmd FileType dockerfile set noexpandtab
@@ -429,11 +403,6 @@ set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.sw?                            " Vim swap files
 set wildignore+=*.DS_Store                       " OSX bullshit
-set wildignore+=*.luac                           " Lua byte code
-set wildignore+=migrations                       " Django migrations
-set wildignore+=go/pkg                       " Go static files
-set wildignore+=go/bin                       " Go bin files
-set wildignore+=go/bin-vagrant               " Go bin-vagrant files
 set wildignore+=*.pyc                            " Python byte code
 set wildignore+=*.orig                           " Merge resolution files
 
@@ -443,9 +412,6 @@ set wildignore+=*.orig                           " Merge resolution files
 " ----------------------------------------- "
 
 
-" ==================== terraform====================
-let g:terraform_align=1
-
 " ==================== FZF =========================
 
 autocmd! FileType fzf
@@ -453,56 +419,6 @@ autocmd  FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 nmap <C-b> :FZF<cr>
 imap <C-b> <esc>:FZF<cr>
-
-" ==================== Fugitive ====================
-nnoremap <leader>ga :Git add %:p<CR><CR>
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gp :Gpush<CR>
-vnoremap <leader>gb :Gblame<CR>
-
-" ==================== Vim-go ====================
-let g:go_version_warning = 0
-let g:go_fmt_fail_silently = 0
-let g:go_fmt_command = "goimports"
-let g:go_autodetect_gopath = 1
-let g:go_term_enabled = 1
-let g:go_snippet_engine = "neosnippet"
-let g:go_highlight_space_tab_error = 0
-let g:go_highlight_array_whitespace_error = 0
-let g:go_highlight_trailing_whitespace_error = 0
-let g:go_highlight_extra_types = 0
-let g:go_highlight_operators = 0
-let g:go_highlight_build_constraints = 1
-
-
-au FileType go nmap <Leader>s <Plug>(go-def-split)
-au FileType go nmap <Leader>v <Plug>(go-def-vertical)
-au FileType go nmap <Leader>i <Plug>(go-info)
-au FileType go nmap <Leader>l <Plug>(go-metalinter)
-
-au FileType go nmap <leader>r  <Plug>(go-run)
-
-au FileType go nmap <leader>b  <Plug>(go-build)
-au FileType go nmap <leader>t  <Plug>(go-test)
-au FileType go nmap <leader>dt  <Plug>(go-test-compile)
-au FileType go nmap <Leader>d <Plug>(go-doc)
-
-au FileType go nmap <Leader>e <Plug>(go-rename)
-
-" neovim specific
-if has('nvim')
-  au FileType go nmap <leader>rt <Plug>(go-run-tab)
-  au FileType go nmap <Leader>rs <Plug>(go-run-split)
-  au FileType go nmap <Leader>rv <Plug>(go-run-vertical)
-endif
-
-" I like these more!
-augroup go
-  autocmd!
-  autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-  autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-  autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-augroup END
 
 " ==================== delimitMate ====================
 let g:delimitMate_expand_cr = 1
@@ -528,20 +444,20 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 let g:vim_json_syntax_conceal = 0
 
 " ==================== Completion =========================
-" use deoplete for Neovim.
-if has('nvim')
-  let g:deoplete#enable_at_startup = 1
-  let g:deoplete#ignore_sources = {}
-  let g:deoplete#ignore_sources._ = ['buffer', 'member', 'tag', 'file', 'neosnippet']
-  let g:deoplete#sources#go#sort_class = ['func', 'type', 'var', 'const']
-  let g:deoplete#sources#go#align_class = 1
-
-
-  " Use partial fuzzy matches like YouCompleteMe
-  call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy'])
-  call deoplete#custom#source('_', 'converters', ['converter_remove_paren'])
-  call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
-endif
+" " use deoplete for Neovim.
+" if has('nvim')
+"   let g:deoplete#enable_at_startup = 1
+"   let g:deoplete#ignore_sources = {}
+"   let g:deoplete#ignore_sources._ = ['buffer', 'member', 'tag', 'file', 'neosnippet']
+"   let g:deoplete#sources#go#sort_class = ['func', 'type', 'var', 'const']
+"   let g:deoplete#sources#go#align_class = 1
+"
+"
+"   " Use partial fuzzy matches like YouCompleteMe
+"   call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy'])
+"   call deoplete#custom#source('_', 'converters', ['converter_remove_paren'])
+"   call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
+" endif
 
 " ==================== vim-multiple-cursors ====================
 let g:multi_cursor_use_default_mapping=0
@@ -569,8 +485,3 @@ endfunction
 " auto strip whitespace except for file with extention blacklisted
 let blacklist = []
 autocmd BufWritePre * StripWhitespace
-
-" =================== rainbow ============================
-let g:rainbow_active = 1
-
-" vim:ts=2:sw=2:et
