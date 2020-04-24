@@ -35,6 +35,8 @@ else
   Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
 endif
 
+Plug 'editorconfig/editorconfig-vim'
+
 " Colors
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'vim-airline/vim-airline'
