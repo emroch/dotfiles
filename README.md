@@ -2,7 +2,7 @@
 
 #### Based on [caarlos0's dotfiles](https://github.com/caarlos0/dotfiles).
 
-[![Build Status][tb]][tp]
+<!-- [![Build Status][tb]][tp] -->
 [![Powered by Antibody][ab]][ap]
 
 > Config files for ZSH, Java, Ruby, Go, Editors, Terminals and more.
@@ -13,8 +13,8 @@
 
 [ap]: https://github.com/getantibody/antibody
 [ab]: https://img.shields.io/badge/powered%20by-antibody-blue.svg?style=flat-square
-[tb]: https://img.shields.io/travis/emroch/dotfiles/master.svg?style=flat-square
-[tp]: https://travis-ci.org/emroch/dotfiles
+<!-- [tb]: https://img.shields.io/travis/emroch/dotfiles/master.svg?style=flat-square -->
+<!-- [tp]: https://travis-ci.org/emroch/dotfiles -->
 [scrn1]: /docs/screenshot1.png
 [scrn2]: /docs/screenshot2.png
 

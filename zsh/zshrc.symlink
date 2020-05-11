@@ -9,6 +9,9 @@ export DOTFILES="$HOME/.dotfiles"
 export EDITOR='vim'
 export VEDITOR='atom'
 
+# configure GPG
+export GPG_TTY=$(tty)
+
 # all of our zsh files
 typeset -U config_files
 config_files=($DOTFILES/*/*.zsh)
