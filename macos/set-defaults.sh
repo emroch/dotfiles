@@ -28,6 +28,12 @@ unload_agent() {
 # settings we’re about to change
 osascript -e 'tell application "System Preferences" to quit'
 
+# Ask for the administrator password upfront
+sudo -v
+
+# Keep-alive: update existing `sudo` time stamp until `set-defaults` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
 ###############################################################################
 echo ""
 echo "› General UI/UX:"
@@ -83,8 +89,8 @@ defaults write com.apple.dock launchanim -bool false
 
 echo "  › Automatically hide and show the Dock"
 defaults write com.apple.dock autohide -bool true
-defaults write com.apple.dock autohide-delay -float 0
-defaults write com.apple.dock autohide-time-modifier -float 0
+# defaults write com.apple.dock autohide-delay -float 0
+# defaults write com.apple.dock autohide-time-modifier -float 0
 
 echo "  › Show indicators for open applications"
 defaults write com.apple.dock show-process-indicators -bool true
@@ -132,10 +138,10 @@ echo "  › Enable full keyboard access for all controls"
 # (e.g. enable Tab in modal dialogs)
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
-echo "  › Use scroll gesture with the Ctrl (^) modifier key to zoom"
-defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
-defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
-defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
+# echo "  › Use scroll gesture with the Ctrl (^) modifier key to zoom"
+# defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
+# defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
+# defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 
 echo "  › Disable press-and-hold for keys in favor of key repeat"
 defaults write -g ApplePressAndHoldEnabled -bool false
@@ -175,17 +181,17 @@ echo "› Energy Saver:"
 echo "  › Wake on lid"
 sudo pmset -a lidwake 1
 
+echo "  › Set sleep timeout"
+sudo pmset -b sleep 10
+# "prevent computer from sleeping automatically when the display is off"
+sudo pmset -c sleep 0
+
 echo "  › Set screen timeout"
 sudo pmset -b displaysleep 10
 sudo pmset -c displaysleep 15
 
 echo "  › Put hard disks to sleep when possible"
 sudo pmset -a disksleep 10
-
-echo "  › Set sleep timeout"
-sudo pmset -b sleep 10
-# "prevent computer from sleeping automatically when the display is off"
-sudo pmset -c sleep 0
 
 echo "  › Wake for network access"
 sudo pmset -a womp 1
@@ -214,7 +220,7 @@ echo "  › Require password immediately after sleep or screen saver begins"
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
-echo "   › Enable font smoothing (subpixel antialiasing)"
+echo "  › Enable font smoothing (subpixel antialiasing)"
 defaults write -g AppleFontSmoothing -int 1
 
 echo "  › Increase the window resize speed for Cocoa applications"
