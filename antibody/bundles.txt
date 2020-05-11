@@ -5,6 +5,7 @@ zsh-users/zsh-completions
 zsh-users/zsh-autosuggestions
 
 # oh-my-zsh plugins
+robbyrussell/oh-my-zsh
 robbyrussell/oh-my-zsh path:lib
 robbyrussell/oh-my-zsh path:plugins/cargo
 robbyrussell/oh-my-zsh path:plugins/colored-man-pages

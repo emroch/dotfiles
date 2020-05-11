@@ -1,5 +1,5 @@
 #!/bin/sh
-apm install --packages-file package-list.txt
+apm install --packages-file ~/.dotfiles/atom/package-list.txt
 apm update --no-confirm
 
 ln -sf "$DOTFILES"/atom/_config.cson ~/.atom/config.cson
