@@ -46,10 +46,16 @@ echo "  › Set dark interface style"
 defaults write -g AppleInterfaceStyle -string "Dark"
 
 echo "  › Set blue appearance"
-defaults write -g AppleAquaColorVariant -int 1
+defaults delete -g AppleAccentColor
 
-# echo "  › Set blue highlight color"
+echo "  › Set blue highlight color"
+defaults delete -g AppleHighlightColor
 # defaults write -g AppleHighlightColor -string "0.847059 0.847059 0.862745"
+
+if [ -f /System/Library/Desktop Pictures/Catalina.heic ]; then
+    echo "  › Set dynamic desktop backgroud"
+    osascript -e 'tell application "Finder" to "/System/Library/Desktop Pictures/Catalina.heic"'
+fi
 
 echo "  › Set sidebar icon size to medium"
 defaults write -g NSTableViewDefaultSizeMode -int 2
