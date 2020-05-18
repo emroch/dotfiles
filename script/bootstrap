@@ -64,6 +64,36 @@ setup_gitconfig() {
     success 'gitconfig'
 }
 
+setup_computer_name() {
+    info 'setup computer name'
+    prompt='Would you like to update it? [y/N] '
+
+    computername="$(scutil --get ComputerName)"
+    localhostname="$(scutil --get LocalHostName)"
+    hostname="$(scutil --get HostName)"
+
+    info " - ComputerName is currently $computername"
+    read -p $prompt response
+    if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
+        read -p 'Enter ComputerName: ' computername
+        sudo scutil --set ComputerName "$computername"
+    fi
+
+    info " - LocalHostName is currently $localhostname"
+    read -p $prompt response
+    if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
+        read -p 'Enter LocalHostName: ' localhostname
+        sudo scutil --set LocalHostName "$localhostname"
+    fi
+
+    info " - HostName is currently $HostName"
+    read -p $prompt response
+    if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
+        read -p 'Enter HostName: ' hostname
+        sudo scutil --set HostName "$hostname"
+    fi
+}
+
 link_file() {
     if [ -e "$2" ]; then
         if [ "$(readlink "$2")" = "$1" ]; then
@@ -95,6 +125,9 @@ find_zsh() {
     fi
 }
 
+if [ "$(uname -s)" = "Darwin" ]; then
+    setup_computer_name
+fi
 setup_gitconfig
 install_dotfiles
 
