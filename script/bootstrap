@@ -73,21 +73,21 @@ setup_computer_name() {
     hostname="$(scutil --get HostName)"
 
     info " - ComputerName is currently $computername"
-    read -p $prompt response
+    read -p "$prompt" response
     if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
         read -p 'Enter ComputerName: ' computername
         sudo scutil --set ComputerName "$computername"
     fi
 
     info " - LocalHostName is currently $localhostname"
-    read -p $prompt response
+    read -p "$prompt" response
     if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
         read -p 'Enter LocalHostName: ' localhostname
         sudo scutil --set LocalHostName "$localhostname"
     fi
 
-    info " - HostName is currently $HostName"
-    read -p $prompt response
+    info " - HostName is currently $hostname"
+    read -p "$prompt" response
     if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
         read -p 'Enter HostName: ' hostname
         sudo scutil --set HostName "$hostname"

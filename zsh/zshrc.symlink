@@ -50,3 +50,6 @@ unset config_files updated_at
 [ -f ~/.localrc ] && . ~/.localrc
 
 # zprof
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
