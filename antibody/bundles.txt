@@ -12,7 +12,8 @@ robbyrussell/oh-my-zsh path:plugins/colored-man-pages
 robbyrussell/oh-my-zsh path:plugins/command-not-found
 
 # theme
-robbyrussell/oh-my-zsh path:themes/agnoster.zsh-theme
+romkatv/powerlevel10k
+#robbyrussell/oh-my-zsh path:themes/agnoster.zsh-theme
 
 # these should be last!
 zdharma/fast-syntax-highlighting
