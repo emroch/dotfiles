@@ -28,7 +28,3 @@ alias gcob='git checkout -b'
 alias gb='git branch -v'
 alias gpr='gp && git pr'
 alias glnext='git log --oneline $(git describe --tags --abbrev=0 @^)..@'
-
-gi() {
-    curl -s "https://www.gitignore.io/api/$*"
-}

@@ -329,6 +329,7 @@ map q: :q
 " sometimes this happens and I hate it
 map :Vs :vs
 map :Sp :sp
+map :Wq :wq
 
 " dont save .netrwhist history
 let g:netrw_dirhistmax=0
