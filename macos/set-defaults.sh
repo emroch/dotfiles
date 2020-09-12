@@ -313,8 +313,9 @@ echo "› Safari & Browsers:"
 echo "  › Set home page"
 defaults write com.apple.Safari HomePage -string "about:blank"
 
-echo "  › Show the full URL in address bar"
+echo "  › Show the full URL and website icons"
 defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
+defaults write com.apple.Safari ShowIconsInTabs -bool true
 
 echo "  › Use backspace to go back"
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool true
@@ -337,6 +338,11 @@ defaults write com.apple.Safari AutoFillFromAddressBook -bool true
 defaults write com.apple.Safari AutoFillPasswords -bool false
 defaults write com.apple.Safari AutoFillCreditCardData -bool false
 defaults write com.apple.Safari AutoFillMiscellaneousForms -bool true
+
+echo "  › Misc Safari Settings"
+defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
+defaults write com.apple.Safari SearchProviderIdentifier -string "com.duckduckgo"
+
 
 echo "  › Disable the annoying backswipe in Chrome"
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false

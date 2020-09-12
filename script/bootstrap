@@ -65,12 +65,12 @@ setup_gitconfig() {
 }
 
 setup_computer_name() {
-    info 'setup computer name'
+    info 'setup computer/host name'
     prompt='Would you like to update it? [y/N] '
 
-    computername="$(scutil --get ComputerName)"
-    localhostname="$(scutil --get LocalHostName)"
-    hostname="$(scutil --get HostName)"
+    computername="$(scutil --get ComputerName || 'unset')"
+    localhostname="$(scutil --get LocalHostName || 'unset')"
+    hostname="$(scutil --get HostName || 'unset')"
 
     info " - ComputerName is currently $computername"
     read -p "$prompt" response
