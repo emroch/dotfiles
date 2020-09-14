@@ -70,6 +70,21 @@ defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
 # echo "  › Disable the 'Are you sure you want to open this application?' dialog"
 # defaults write com.apple.LaunchServices LSQuarantine -bool false
 
+echo "  › Enable menubar extras"
+defaults write com.apple.systemuiserver menuExtras -array \
+    "/System/Library/CoreServices/Menu Extras/Clock.menu" \
+    "/System/Library/CoreServices/Menu Extras/Battery.menu" \
+    "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
+    "/System/Library/CoreServices/Menu Extras/Displays.menu" \
+    "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
+    "/System/Library/CoreServices/Menu Extras/Volume.menu"
+defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.airplay" -bool true
+defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.airport" -bool true
+defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.battery" -bool true
+defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.bluetooth" -bool true
+defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.clock" -bool true
+defaults write com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.volume" -bool true
+
 echo "  › Show battery percent"
 defaults write com.apple.menuextra.battery ShowPercent -bool true
 
@@ -316,6 +331,9 @@ defaults write com.apple.Safari HomePage -string "about:blank"
 echo "  › Show the full URL and website icons"
 defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
 defaults write com.apple.Safari ShowIconsInTabs -bool true
+
+echo "  › Always show tab bar"
+defaults write com.apple.Safari AlwaysShowTabBar -bool true
 
 echo "  › Use backspace to go back"
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool true
