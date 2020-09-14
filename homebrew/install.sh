@@ -13,3 +13,7 @@ fi
 test "$(which brew)" && git config \
   --file="$(brew --repository)/.git/config" \
   --replace-all homebrew.analyticsdisabled true
+
+# If homebrew-autoupdate is not running, start it with a 24h period
+test "$(brew autoupdate --status)" = "Autoupdate is installed and running." || \
+    brew autoupdate --start 86400
