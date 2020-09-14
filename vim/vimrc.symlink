@@ -20,12 +20,11 @@ Plug 'Raimondi/delimitMate'
 Plug '/usr/local/opt/fzf'
 
 " langs et al
+Plug 'sheerun/vim-polyglot'             " many language support
 Plug 'Yggdroot/indentLine'              " show vertical lines at indent levels
 Plug 'terryma/vim-multiple-cursors'     " multiple cursor support
 Plug 'ntpeters/vim-better-whitespace'   " highlight trailing whitespace
 Plug 'tpope/vim-endwise'                " end language structures automatically
-Plug 'elzr/vim-json'                    " nice json highlighting
-Plug 'ekalinin/Dockerfile.vim'
 
 " git integration
 Plug 'tpope/vim-fugitive'
@@ -280,8 +279,8 @@ nnoremap <leader>a :cclose<CR>
 nnoremap <leader><space> :nohlsearch<CR>
 
 " Buffer prev/next
-nnoremap <C-x> :bnext<CR>
-nnoremap <C-z> :bprev<CR>
+"nnoremap <C-x> :bnext<CR>
+"nnoremap <C-z> :bprev<CR>
 
 " Better split switching
 map <C-j> <C-W>j
