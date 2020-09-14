@@ -56,16 +56,6 @@ better git diffs (you'll need to run `dot_update` to apply it);
 - [`fzf`](https://github.com/junegunn/fzf):
 fuzzy finder, used in `,t` on vim, for example;
 
-### macOS defaults
-
-You use it by running:
-
-```console
-$DOTFILES/macos/set-defaults.sh
-```
-
-And logging out and in again/restart.
-
 ### Themes and fonts being used
 
 Theme is **[Dracula](https://draculatheme.com)** and the font is
