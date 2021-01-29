@@ -2,7 +2,7 @@
 if [ "$(uname -s)" = "Darwin" ]; then
     alias ls="ls -FG"
     alias f="open -a Finder"                # open Finder to directory
-    alias pv="open -a Preview"              # open file in Preview
+    #alias pv="open -a Preview"              # open file in Preview
     alias ql='qlmanage -p 2>/dev/null'      # show file in QuickLook
 else
     alias ls="ls -F --color"
