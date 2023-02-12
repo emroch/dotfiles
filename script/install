@@ -1,12 +1,16 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # Run all dotfiles installers.
 set -e
 
-cd "$(dirname "$0")"/..
+export DOTFILES="$HOME/.dotfiles"
+cd "$DOTFILES" || exit 1
 
-# find the installers and run them iteratively
-git ls-tree --name-only -r HEAD | grep install.sh | while read -r installer; do
-    echo "› ${installer}..."
-    sh -c "$installer"
+installers=( $(find . -name install.sh) );
+echo "› found ${#installers[@]} installers"
+for installer in ${installers[*]}; do
+    read -p "... Run ${installer}? [Y/n] " response
+    if [[ ! "$response" =~ ^([nN][oO]|[nN])$ ]]; then
+        sh -c "$installer"
+    fi
 done

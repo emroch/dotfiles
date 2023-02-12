@@ -15,7 +15,7 @@ export DOTFILES="$HOME/.dotfiles"
 
 # your default editor
 export EDITOR='vim'
-export VEDITOR='atom'
+export VEDITOR='code'
 
 # configure GPG
 export GPG_TTY=$(tty)

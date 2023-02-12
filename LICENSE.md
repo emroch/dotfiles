@@ -1,5 +1,6 @@
 The MIT License
 
+Copyright (c) Eric Roch, https://github.com/emroch
 Copyright (c) Carlos Becker, http://carlosbecker.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

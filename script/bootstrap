@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # bootstrap installs things.
 
@@ -50,14 +50,15 @@ setup_gitconfig() {
         user_email="$(git config --global --get user.email)"
         mv ~/.gitconfig ~/.gitconfig.backup
         success "moved ~/.gitconfig to ~/.gitconfig.backup"
+        info "if you've already made edits, be sure to copy them back to the new config"
         git config --global user.name "$user_name"
         git config --global user.email "$user_email"
     else
         # otherwise this gitconfig was already made by the dotfiles
         info "already managed by dotfiles"
     fi
-    # include the gitconfig.local file
-    git config --global include.path ~/.gitconfig.local
+    # include the gitconfig.dotfiles file
+    git config --global include.path ~/.gitconfig.dotfiles
     # finally make git knows this is a managed config already, preventing later
     # overrides by this script
     git config --global dotfiles.managed true
@@ -68,9 +69,19 @@ setup_computer_name() {
     info 'setup computer/host name'
     prompt='Would you like to update it? [y/N] '
 
-    computername="$(scutil --get ComputerName || 'unset')"
-    localhostname="$(scutil --get LocalHostName || 'unset')"
-    hostname="$(scutil --get HostName || 'unset')"
+    computername="$(scutil --get ComputerName 2>&1)"
+    localhostname="$(scutil --get LocalHostName 2>&1)"
+    hostname="$(scutil --get HostName 2>&1 || true)"
+
+    if [[ $computername =~ "not set" ]]; then
+        computername="unset"
+    fi
+    if [[ $localhostname =~ "not set" ]]; then
+        localhostname="unset"
+    fi
+    if [[ $hostname =~ "not set" ]]; then
+        hostname="unset"
+    fi
 
     info " - ComputerName is currently $computername"
     read -p "$prompt" response
@@ -113,6 +124,7 @@ install_dotfiles() {
     find -H "$DOTFILES_ROOT" -maxdepth 3 -name '*.symlink' -not -path '*.git*' |
         while read -r src; do
             dst="$HOME/.$(basename "${src%.*}")"
+            echo "› creating symlink ${dst}..."
             link_file "$src" "$dst"
         done
 }
@@ -128,11 +140,11 @@ find_zsh() {
 if [ "$(uname -s)" = "Darwin" ]; then
     setup_computer_name
 fi
-setup_gitconfig
 install_dotfiles
+setup_gitconfig
 
 info "installing dependencies"
-if ./bin/dot_update; then
+if "${DOTFILES_ROOT}/script/install"; then
     success "dependencies installed"
 else
     fail "error installing dependencies"
